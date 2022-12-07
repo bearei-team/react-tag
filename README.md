@@ -10,7 +10,7 @@ Base tag components that support React and React native
 
 | Name | Type | Required | Description |
 | :-- | --: | --: | :-- |
-| icon | `ReactNode` | ✘ | Tag item icon |
+| icon | `ReactNode` | ✘ | Tag icon |
 | closeIcon | `ReactNode` | ✘ | Tag close button icon |
 | closeIconVisible | `boolean` | ✘ | Whether the tag close button icon is visible |
 | disabled | `boolean` | ✘ | Whether or not to disable the Tag |
