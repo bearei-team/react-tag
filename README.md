@@ -10,8 +10,10 @@ Base tag components that support React and React native
 
 | Name | Type | Required | Description |
 | :-- | --: | --: | :-- |
-| icon | `ReactNode` | ✘ | Tag item icon |
+| icon | `ReactNode` | ✘ | Tag icon |
 | closeIcon | `ReactNode` | ✘ | Tag close button icon |
+| color | `string` | ✘ | Tag color |
+| border | `boolean` | ✘ | Whether or not to display the tag border |
 | closeIconVisible | `boolean` | ✘ | Whether the tag close button icon is visible |
 | disabled | `boolean` | ✘ | Whether or not to disable the Tag |
 | loading | `boolean` | ✘ | Whether the tag is loading |
@@ -24,8 +26,8 @@ Base tag components that support React and React native
 | onPress | `(e: GestureResponderEvent) => void` | ✘ | This function is called when the tag is pressed -- react native |
 | renderIcon | `(props: TagIconProps) => ReactNode` | ✘ | Render the tag icon |
 | renderCloseIcon | `(props: TagCloseIconProps) => ReactNode` | ✘ | Render the tag close icon |
-| renderMain | `(props: TagMainProps) => ReactNode` | ✘ | Render the tag main |
-| renderContainer | `(props: TagContainerProps) => ReactNode` | ✘ | Render the tag container |
+| renderMain | `(props: TagMainProps) => ReactNode` | ✔ | Render the tag main |
+| renderContainer | `(props: TagContainerProps) => ReactNode` | ✔ | Render the tag container |
 
 ## Use
 
