@@ -13,10 +13,16 @@ describe('test/components/Tag.test.ts', () => {
         icon={<i>"icon"</i>}
         closeIcon={<i>"closeIcon"</i>}
         renderIcon={({children}) => <i data-cy="icon">{children}</i>}
-        renderCloseIcon={({children}) => <i data-cy="closeIcon">{children}</i>}
-        renderMain={({text, ...props}) => (
+        renderCloseIcon={({children, ...props}) => (
+          <i data-cy="closeIcon" {...pickHTMLAttributes(props)}>
+            {children}
+          </i>
+        )}
+        renderMain={({text, icon, closeIcon, ...props}) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
+            {icon}
             {text}
+            {closeIcon}
           </i>
         )}
         renderContainer={({id, children}) => (
@@ -46,17 +52,14 @@ describe('test/components/Tag.test.ts', () => {
             {children}
           </i>
         )}
-        renderMain={({children}) => (
-          <i data-cy="tag">
-            "tag"
-            {children}
+        renderMain={({text, icon, closeIcon, ...props}) => (
+          <i {...pickHTMLAttributes(props)} data-cy="tag">
+            {icon}
+            {text}
+            {closeIcon}
           </i>
         )}
-        renderContainer={({children, ...props}) => (
-          <div data-cy="container" {...pickHTMLAttributes(props)}>
-            {children}
-          </div>
-        )}
+        renderContainer={({children}) => <div data-cy="container">{children}</div>}
       />,
     );
 
@@ -73,12 +76,14 @@ describe('test/components/Tag.test.ts', () => {
       <Tag
         onClick={e => (eventType = e?.type)}
         disabled
-        renderMain={() => <i data-cy="tag">"tag"</i>}
-        renderContainer={({children, ...props}) => (
-          <div data-cy="container" {...pickHTMLAttributes(props)}>
-            {children}
-          </div>
+        renderMain={({text, icon, closeIcon, ...props}) => (
+          <i {...pickHTMLAttributes(props)} data-cy="tag">
+            {icon}
+            {text}
+            {closeIcon}
+          </i>
         )}
+        renderContainer={({children}) => <div data-cy="container">{children}</div>}
       />,
     );
 
@@ -94,12 +99,14 @@ describe('test/components/Tag.test.ts', () => {
       <Tag
         onClick={e => (eventType = e?.type)}
         loading
-        renderMain={() => <i data-cy="tag">"tag"</i>}
-        renderContainer={({children, ...props}) => (
-          <div data-cy="container" {...pickHTMLAttributes(props)}>
-            {children}
-          </div>
+        renderMain={({text, icon, closeIcon, ...props}) => (
+          <i {...pickHTMLAttributes(props)} data-cy="tag">
+            {icon}
+            {text}
+            {closeIcon}
+          </i>
         )}
+        renderContainer={({children}) => <div data-cy="container">{children}</div>}
       />,
     );
 

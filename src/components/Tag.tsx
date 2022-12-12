@@ -31,6 +31,16 @@ export interface BaseTagProps<T = HTMLElement>
   icon?: ReactNode;
 
   /**
+   * Tag color
+   */
+  color?: string;
+
+  /**
+   * Whether or not to display the label border
+   */
+  border?: boolean;
+
+  /**
    * Whether the tag close button icon is visible
    */
   closeIconVisible?: boolean;
@@ -103,12 +113,12 @@ export interface TagProps<T> extends BaseTagProps<T> {
   /**
    * Render the tag main
    */
-  renderMain?: (props: TagMainProps) => ReactNode;
+  renderMain: (props: TagMainProps<T>) => ReactNode;
 
   /**
    * Render the tag container
    */
-  renderContainer?: (props: TagContainerProps<T>) => ReactNode;
+  renderContainer: (props: TagContainerProps) => ReactNode;
 }
 
 /**
@@ -124,8 +134,8 @@ export interface TagChildrenProps extends Omit<BaseTagProps, 'ref'> {
 
 export type TagIconProps = TagChildrenProps;
 export type TagCloseIconProps = TagIconProps;
-export type TagMainProps = TagChildrenProps;
-export type TagContainerProps<T> = TagChildrenProps & Pick<BaseTagProps<T>, 'ref'>;
+export type TagMainProps<T> = TagChildrenProps & Pick<BaseTagProps<T>, 'ref'>;
+export type TagContainerProps = TagChildrenProps;
 
 export interface HandleResponseOptions<E> {
   isClose?: boolean;
@@ -193,25 +203,19 @@ const Tag = <T extends HTMLElement>(props: TagProps<T>) => {
       ...bindEvents(events, handleCallback(true)),
     });
 
-  const main = renderMain?.({
-    ...childrenProps,
-    loading,
-    disabled,
-  });
-
-  const content = (
-    <>
-      {iconNode}
-      {main}
-      {closeIconNode}
-    </>
-  );
-
-  const container = renderContainer?.({
+  const main = renderMain({
     ...childrenProps,
     ref,
-    children: content,
+    loading,
+    disabled,
+    icon: iconNode,
+    closeIcon: closeIconNode,
     ...bindEvents(events, handleCallback()),
+  });
+
+  const container = renderContainer({
+    ...childrenProps,
+    children: main,
   });
 
   return <>{container}</>;
