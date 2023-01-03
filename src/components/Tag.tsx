@@ -1,6 +1,19 @@
-import {bindEvents, handleDefaultEvent} from '@bearei/react-util/lib/event';
-import {DetailedHTMLProps, HTMLAttributes, ReactNode, Ref, TouchEvent, useId} from 'react';
-import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
+import {
+  bindEvents,
+  handleDefaultEvent,
+} from '@bearei/react-util/lib/commonjs/event';
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ReactNode,
+  Ref,
+  TouchEvent,
+  useId,
+} from 'react';
+import type {
+  GestureResponderEvent,
+  TouchableHighlightProps,
+} from 'react-native';
 
 /**
  * Tag options
@@ -15,7 +28,7 @@ export interface TagOptions<E = unknown> {
 /**
  * Base tag props
  */
-export interface BaseTagProps<T = HTMLElement>
+export interface BaseTagProps<T>
   extends Omit<
     DetailedHTMLProps<HTMLAttributes<T>, T> & TouchableHighlightProps,
     'onClick' | 'onTouchEnd' | 'onPress'
@@ -103,12 +116,12 @@ export interface TagProps<T> extends BaseTagProps<T> {
   /**
    * Render the tag icon
    */
-  renderIcon?: (props: TagIconProps) => ReactNode;
+  renderIcon?: (props: TagIconProps<T>) => ReactNode;
 
   /**
    * Render the tag close icon
    */
-  renderCloseIcon?: (props: TagCloseIconProps) => ReactNode;
+  renderCloseIcon?: (props: TagCloseIconProps<T>) => ReactNode;
 
   /**
    * Render the tag main
@@ -118,13 +131,13 @@ export interface TagProps<T> extends BaseTagProps<T> {
   /**
    * Render the tag container
    */
-  renderContainer: (props: TagContainerProps) => ReactNode;
+  renderContainer: (props: TagContainerProps<T>) => ReactNode;
 }
 
 /**
  * Tag children props
  */
-export interface TagChildrenProps extends Omit<BaseTagProps, 'ref'> {
+export interface TagChildrenProps<T> extends Omit<BaseTagProps<T>, 'ref'> {
   /**
    * Component unique ID
    */
@@ -132,17 +145,19 @@ export interface TagChildrenProps extends Omit<BaseTagProps, 'ref'> {
   children?: ReactNode;
 }
 
-export type TagIconProps = TagChildrenProps;
-export type TagCloseIconProps = TagIconProps;
-export type TagMainProps<T> = TagChildrenProps & Pick<BaseTagProps<T>, 'ref'>;
-export type TagContainerProps = TagChildrenProps;
+export type TagIconProps<T> = TagChildrenProps<T>;
+export type TagCloseIconProps<T> = TagIconProps<T>;
+export type TagMainProps<T> = TagChildrenProps<T> &
+  Pick<BaseTagProps<T>, 'ref'>;
+
+export type TagContainerProps<T> = TagChildrenProps<T>;
 
 export interface HandleResponseOptions<E> {
   isClose?: boolean;
   callback?: (e: E) => void;
 }
 
-const Tag = <T extends HTMLElement>(props: TagProps<T>) => {
+const Tag = <T extends HTMLElement = HTMLElement>(props: TagProps<T>) => {
   const {
     ref,
     icon,
@@ -162,39 +177,41 @@ const Tag = <T extends HTMLElement>(props: TagProps<T>) => {
 
   const id = useId();
   const events = Object.keys(props).filter(key => key.startsWith('on'));
-  const childrenProps = {...args, loading, disabled, id};
-
+  const childrenProps = { ...args, loading, disabled, id };
   const handleTagOptionsChange = <E,>(options: TagOptions<E>) => {
     onClose?.(options);
   };
 
-  const handleResponse = <E,>(e: E, {isClose, callback}: HandleResponseOptions<E>) => {
+  const handleResponse = <E,>(
+    e: E,
+    { isClose, callback }: HandleResponseOptions<E>,
+  ) => {
     const isResponse = !loading && !disabled;
 
     if (isResponse) {
-      isClose && handleTagOptionsChange({event: e});
+      isClose && handleTagOptionsChange({ event: e });
       callback?.(e);
     }
   };
 
   const handleCallback = (isClose?: boolean) => (key: string) => {
-    const options = {isClose};
+    const options = { isClose };
     const event = {
       onClick: handleDefaultEvent((e: React.MouseEvent<T, MouseEvent>) =>
-        handleResponse(e, {...options, callback: onClick}),
+        handleResponse(e, { ...options, callback: onClick }),
       ),
       onTouchEnd: handleDefaultEvent((e: TouchEvent<T>) =>
-        handleResponse(e, {...options, callback: onTouchEnd}),
+        handleResponse(e, { ...options, callback: onTouchEnd }),
       ),
       onPress: handleDefaultEvent((e: GestureResponderEvent) =>
-        handleResponse(e, {...options, callback: onPress}),
+        handleResponse(e, { ...options, callback: onPress }),
       ),
     };
 
     return event[key as keyof typeof event];
   };
 
-  const iconNode = icon && renderIcon?.({...childrenProps, children: icon});
+  const iconNode = icon && renderIcon?.({ ...childrenProps, children: icon });
   const closeIconNode =
     closeIcon &&
     renderCloseIcon?.({
@@ -213,10 +230,7 @@ const Tag = <T extends HTMLElement>(props: TagProps<T>) => {
     ...bindEvents(events, handleCallback()),
   });
 
-  const container = renderContainer({
-    ...childrenProps,
-    children: main,
-  });
+  const container = renderContainer({ ...childrenProps, children: main });
 
   return <>{container}</>;
 };
