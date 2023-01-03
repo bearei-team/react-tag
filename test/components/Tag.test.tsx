@@ -1,31 +1,31 @@
-import {pickHTMLAttributes} from '@bearei/react-util';
+import { pickHTMLAttributes } from '@bearei/react-util';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import Tag from '../../src/components/Tag';
-import {render} from '../utils/testUtils';
+import { render } from '../utils/test_utils';
 
 describe('test/components/Tag.test.ts', () => {
   test('It should be a render tag', async () => {
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Tag
         text="tag"
         icon={<i>"icon"</i>}
         closeIcon={<i>"closeIcon"</i>}
-        renderIcon={({children}) => <i data-cy="icon">{children}</i>}
-        renderCloseIcon={({children, ...props}) => (
+        renderIcon={({ children }) => <i data-cy="icon">{children}</i>}
+        renderCloseIcon={({ children, ...props }) => (
           <i data-cy="closeIcon" {...pickHTMLAttributes(props)}>
             {children}
           </i>
         )}
-        renderMain={({text, icon, closeIcon, ...props}) => (
+        renderMain={({ text, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
             {text}
             {closeIcon}
           </i>
         )}
-        renderContainer={({id, children}) => (
+        renderContainer={({ id, children }) => (
           <div data-cy="container" data-id={id} tabIndex={1}>
             {children}
           </div>
@@ -43,23 +43,25 @@ describe('test/components/Tag.test.ts', () => {
     const user = userEvent.setup();
     let eventType!: string | undefined;
 
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Tag
         onClick={e => (eventType = e?.type)}
         closeIcon={<i>"closeIcon"</i>}
-        renderCloseIcon={({children, ...props}) => (
+        renderCloseIcon={({ children, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="closeIcon">
             {children}
           </i>
         )}
-        renderMain={({text, icon, closeIcon, ...props}) => (
+        renderMain={({ text, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
             {text}
             {closeIcon}
           </i>
         )}
-        renderContainer={({children}) => <div data-cy="container">{children}</div>}
+        renderContainer={({ children }) => (
+          <div data-cy="container">{children}</div>
+        )}
       />,
     );
 
@@ -72,18 +74,20 @@ describe('test/components/Tag.test.ts', () => {
     const user = userEvent.setup();
     let eventType!: string | undefined;
 
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Tag
         onClick={e => (eventType = e?.type)}
         disabled
-        renderMain={({text, icon, closeIcon, ...props}) => (
+        renderMain={({ text, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
             {text}
             {closeIcon}
           </i>
         )}
-        renderContainer={({children}) => <div data-cy="container">{children}</div>}
+        renderContainer={({ children }) => (
+          <div data-cy="container">{children}</div>
+        )}
       />,
     );
 
@@ -95,18 +99,20 @@ describe('test/components/Tag.test.ts', () => {
     const user = userEvent.setup();
     let eventType!: string | undefined;
 
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Tag
         onClick={e => (eventType = e?.type)}
         loading
-        renderMain={({text, icon, closeIcon, ...props}) => (
+        renderMain={({ text, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
             {text}
             {closeIcon}
           </i>
         )}
-        renderContainer={({children}) => <div data-cy="container">{children}</div>}
+        renderContainer={({ children }) => (
+          <div data-cy="container">{children}</div>
+        )}
       />,
     );
 
