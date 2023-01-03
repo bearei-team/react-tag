@@ -41,10 +41,10 @@ const tag = (
     text="tag"
     icon={<i>"icon"</i>}
     closeIcon={<i>"closeIcon"</i>}
-    renderIcon={({children}) => <i>{children}</i>}
-    renderCloseIcon={({children}) => <i>{children}</i>}
-    renderMain={({text, ...props}) => <span {...props}>{text}</span>}
-    renderContainer={({id, children}) => (
+    renderIcon={({ children }) => <i>{children}</i>}
+    renderCloseIcon={({ children }) => <i>{children}</i>}
+    renderMain={({ text, ...props }) => <span {...props}>{text}</span>}
+    renderContainer={({ id, children }) => (
       <div data-id={id} tabIndex={1}>
         {children}
       </div>
