@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import Tag from '../../src/components/Tag';
-import { render } from '../utils/test_utils';
+import { render } from '../utils/test-utils';
 
 describe('test/components/Tag.test.ts', () => {
   test('It should be a render tag', async () => {

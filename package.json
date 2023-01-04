@@ -1,6 +1,6 @@
 {
   "name": "@bearei/react-tag",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "./lib/commonjs/index",
   "module": "./lib/module/index",
   "types": "./lib/commonjs/index.d.ts",
@@ -22,7 +22,7 @@
     "url": "https://github.com/bearei-team/react-tag/issues"
   },
   "dependencies": {
-    "@bearei/react-util": "^0.0.26",
+    "@bearei/react-util": "^0.0.28",
     "react": "^18.2.0"
   },
   "devDependencies": {
@@ -91,5 +91,5 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.3.1"
 }
