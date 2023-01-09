@@ -17,7 +17,7 @@ Base tag components that support React and React native
 | closeIconVisible | `boolean` | ✘ | Whether the tag close button icon is visible |
 | disabled | `boolean` | ✘ | Whether or not to disable the Tag |
 | loading | `boolean` | ✘ | Whether the tag is loading |
-| text | `string` | ✘ | Tag to display text |
+| content | `ReactNode` | ✘ | Tag to display content |
 | size | `small` `medium` `large` | ✘ | Tag size |
 | shape | `square` `circle` `round` | ✘ | Tag shape |
 | onClose | `(options: TagOptions) => void` | ✘ | This function is called when the tag is closed |
@@ -38,12 +38,12 @@ import Tag from '@bearei/react-tag';
 
 const tag = (
   <Tag
-    text="tag"
+    content="tag"
     icon={<i>"icon"</i>}
     closeIcon={<i>"closeIcon"</i>}
     renderIcon={({ children }) => <i>{children}</i>}
     renderCloseIcon={({ children }) => <i>{children}</i>}
-    renderMain={({ text, ...props }) => <span {...props}>{text}</span>}
+    renderMain={({ content, ...props }) => <span {...props}>{content}</span>}
     renderContainer={({ id, children }) => (
       <div data-id={id} tabIndex={1}>
         {children}

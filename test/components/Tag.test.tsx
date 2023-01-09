@@ -9,7 +9,7 @@ describe('test/components/Tag.test.ts', () => {
   test('It should be a render tag', async () => {
     const { getByDataCy } = render(
       <Tag
-        text="tag"
+        content="tag"
         icon={<i>"icon"</i>}
         closeIcon={<i>"closeIcon"</i>}
         renderIcon={({ children }) => <i data-cy="icon">{children}</i>}
@@ -18,10 +18,10 @@ describe('test/components/Tag.test.ts', () => {
             {children}
           </i>
         )}
-        renderMain={({ text, icon, closeIcon, ...props }) => (
+        renderMain={({ content, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
-            {text}
+            {content}
             {closeIcon}
           </i>
         )}
@@ -52,10 +52,10 @@ describe('test/components/Tag.test.ts', () => {
             {children}
           </i>
         )}
-        renderMain={({ text, icon, closeIcon, ...props }) => (
+        renderMain={({ content, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
-            {text}
+            {content}
             {closeIcon}
           </i>
         )}
@@ -78,10 +78,10 @@ describe('test/components/Tag.test.ts', () => {
       <Tag
         onClick={e => (eventType = e?.type)}
         disabled
-        renderMain={({ text, icon, closeIcon, ...props }) => (
+        renderMain={({ content, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
-            {text}
+            {content}
             {closeIcon}
           </i>
         )}
@@ -103,10 +103,10 @@ describe('test/components/Tag.test.ts', () => {
       <Tag
         onClick={e => (eventType = e?.type)}
         loading
-        renderMain={({ text, icon, closeIcon, ...props }) => (
+        renderMain={({ content, icon, closeIcon, ...props }) => (
           <i {...pickHTMLAttributes(props)} data-cy="tag">
             {icon}
-            {text}
+            {content}
             {closeIcon}
           </i>
         )}
