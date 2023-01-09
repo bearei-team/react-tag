@@ -75,9 +75,9 @@ export interface BaseTagProps<T>
   loading?: boolean;
 
   /**
-   * Tag to display text
+   * Tag to display content
    */
-  text?: string;
+  content?: ReactNode;
 
   /**
    * Tag size
